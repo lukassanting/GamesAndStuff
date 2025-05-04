@@ -1,4 +1,3 @@
-
 // 1. Set up the initial game state
 let gameState = {
     board: Array(9).fill(null),
@@ -10,15 +9,39 @@ let gameState = {
 const board = document.getElementById("board");
 const status = document.getElementById("status");
 
+async function fetchGameState() {
+    const response = await fetch('/Game');
+    gameState = await response.json();
+    renderBoard();
+}
+
 function renderBoard(){
-    // TODO: Implement the logic to render the board
+    board.innerHTML = "";
 
-    // Set up what to do when a cell is clicked in div
+    gameState.board.forEach((cellValue, idx) => {
+        const cellDiv = document.createElement("div");
+        cellDiv.className = "cell";
+        cellDiv.textContent = cellValue || "";
+        cellDiv.onclick = () => {
+            if (!cellValue && !gameState.winner) makeMove(idx);
+        };
+        board.appendChild(cellDiv);
+    });
+    status.textContent = gameState.winner 
+        ? `Winner: ${gameState.winner}`
+        : `Current Player: ${gameState.currentPlayer}`;
 }
 
-function makeMove(index){
-    // TODO: Implement the logic to make a move
+async function makeMove(index){
+    const response = await fetch(`/Game/move?position=${index}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(gameState),
+    });
+    gameState = await response.json();
+    renderBoard();
 }
 
-
-renderBoard();
+fetchGameState();

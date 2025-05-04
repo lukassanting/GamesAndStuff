@@ -1,22 +1,65 @@
+#title{
+    /*Spacing and alignment*/
+    text-align: center;
+    margin-bottom: 20px;
+
+    /*Typography*/
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+#status{
+    /*Spacing and alignment*/
+    text-align: center;
+    margin-bottom: 20px;
+
+    /*Typography*/
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
 #board{
+    /*Spacing and alignment*/
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5px;
+    max-width: 300px;
+    margin: 0 auto;
+
+    /*Styling*/
+    border: 1px solid #000;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .cell{
-    width: 100px;
-    height: 100px;
+    /*Spacing and alignment*/   
+    width: 90px; /* Reduced from 100px to prevent overflow */
+    height: 90px; /* Reduced to match width */
     border: 1px solid #000;
-    line-height: 100px;
-    background-color: #f0f0f0;
+    line-height: 90px; /* Adjusted to match new height */
     display: flex;
     justify-content: center;
     align-items: center;
 
-    /* Text styling */
+    /*Text styling*/
     font-size: 2em;
     text-align: center;
 
-    
+    /*Interaction*/
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /*Hover and click effects*/
+    &:hover {
+        background-color: #f0f0f0;
+    }
+
+    &:active {
+        background-color: #e0e0e0;
+    }
 }
